@@ -126,8 +126,9 @@ load-test :
 
 jumpbox :
 	# start a jumpbox pod
-	@-kubectl delete pod jumpbox --ignore-not-found=true
+	@kubectl delete pod jumpbox --ignore-not-found=true
 
+	# alpine image no longer resides on that repo.
 	@kubectl run jumpbox --image=ghcr.io/retaildevcrews/alpine --restart=Always -- /bin/sh -c "trap : TERM INT; sleep 9999999999d & wait"
 	@kubectl wait pod jumpbox --for condition=ready --timeout=30s
 
